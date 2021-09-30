@@ -16,3 +16,20 @@ request.onsuccess = function (event) {
     }
 };
 
+request.onerror = function (event) {
+    console.log(event.target.errorCode)
+};
+
+function saveRecord (record) {
+    const transaction = db.transaction(["BudgetStore"], "readwrite");
+    const store = transaction.objectStore("BudgetStore");
+    store.add (record);
+};
+
+function checkDatabase() {
+    const transaction = db.transaction(["BudgetStore"], "readwrite");
+    const store = transaction.objectStore("BudgetStore");
+    const getAll = store.getAll
+
+    
+}
