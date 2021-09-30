@@ -1,6 +1,6 @@
 let db;
 
-const request = window.indexedDB.open("BudgetStore");
+const request = window.indexedDB.open("BudgetDB");
 
 request.onupgradeneeded = function (event) {
     db = event.target.result;
@@ -29,16 +29,16 @@ function saveRecord (record) {
 function checkDatabase() {
     const transaction = db.transaction(["BudgetStore"], "readwrite");
     const store = transaction.objectStore("BudgetStore");
-    const getAll = store.getAll
+    const getAll = store.getAll()
 
     getAll.onsuccess = function () {
-        if (getAll.results.length > 0) {
-            fetch('/api/transactions/bulk', {
+        if (getAll.result.length > 0) {
+            fetch('/api/transaction/bulk', {
                 method: 'POST',
-                body: JSON.stringify(getAll.results),
+                body: JSON.stringify(getAll.result),
                 headers: {
                     Accept: 'application/json, text/plain, */*',
-                    'Content-Type' : 'application/json'
+                    'Content-Type' : 'application/json',
                 },
             })
             .then((response) => response.json())
