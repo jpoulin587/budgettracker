@@ -31,5 +31,24 @@ function checkDatabase() {
     const store = transaction.objectStore("BudgetStore");
     const getAll = store.getAll
 
-    
+    getAll.onsuccess = function () {
+        if (getAll.results.length > 0) {
+            fetch('/api/transactions/bulk', {
+                method: 'POST',
+                body: JSON.stringify(getAll.results),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type' : 'application/json'
+                },
+            })
+            .then((response) => response.json())
+            .then(() => {
+                const transaction = db.transaction(["BudgetStore"], "readwrite");
+                const store = transaction.objectStore("BudgetStore");
+                store.clear();
+            })
+        }
+    };
 }
+
+window.addEventListener('online', checkDatabase);
