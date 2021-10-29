@@ -2,7 +2,9 @@
 # Online-Offline budget tracker 
 
 ## Description
-This is a simple budget tracker that will store tranaction data in a Mongo DB in the cloud.  If the app is offline, it will continue to store data locally and when the online connection is restored, it will upload stored transactions. 
+This is a simple budget tracker that will store transactions data in a Mongo DB in the cloud.  If the app is offline, it will continue to store data locally and when the online connection is restored, it will upload stored transactions. 
+
+![online/offline budget tracker.](./Screenshot.png)
 
 ## Table of Contents
 - [Installation](#installation)
